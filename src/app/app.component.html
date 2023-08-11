@@ -3,8 +3,8 @@
   <span class="spacer"></span>
   <button mat-button [matMenuTriggerFor]="menu">Public posts</button>
   <mat-menu #menu="matMenu">
-    <a mat-button [routerLink]="'guest/public-posts/random'">Random</a>
+    <a mat-menu-item [routerLink]="'guest/public-posts/random'">Random</a>
+    <a mat-menu-item [routerLink]="'guest/public-posts/search'">Search</a>
   </mat-menu>
-
 </mat-toolbar>
 <router-outlet></router-outlet>
