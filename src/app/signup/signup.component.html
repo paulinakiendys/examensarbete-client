@@ -1,0 +1,29 @@
+<div class="container">
+  <div>
+    <div *ngIf="!(loading$ | async); else loadingTemplate">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Create account</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form (ngSubmit)="submit(signupForm)" #signupForm="ngForm">
+            <mat-form-field>
+              <input matInput type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <input matInput type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" type="submit" [disabled]="loading$ | async">Sign Up</button>
+          </form>
+          <p *ngIf="(error$ | async) as error" class="error">{{ error }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <ng-template #loadingTemplate>
+      <mat-progress-spinner class="loading-spinner" mode="indeterminate"></mat-progress-spinner>
+    </ng-template>
+  </div>
+</div>

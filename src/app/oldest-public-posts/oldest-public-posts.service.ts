@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OldestPublicPostsService {
-  private baseUrl = 'http://localhost:3000/guest/public-posts/sorted/oldest';
+  private url = 'http://localhost:3000/guest/public-posts/sorted/oldest';
 
   constructor(private http: HttpClient) { }
 
   getOldestPublicPosts(page: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}?page=${page}`);
+    return this.http.get<any>(`${this.url}?page=${page}`);
   }
 }

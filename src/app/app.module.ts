@@ -6,11 +6,16 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { provideState, provideStore } from '@ngrx/store';
+import { authFeature, signup$ } from './store/auth';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+
 import { NewestPublicPostsComponent } from './newest-public-posts/newest-public-posts.component';
 import { OldestPublicPostsComponent } from './oldest-public-posts/oldest-public-posts.component';
 import { PublicPostComponent } from './public-post/public-post.component';
 import { RandomPublicPostsComponent } from './random-public-posts/random-public-posts.component';
 import { SearchPublicPostsComponent } from './search-public-posts/search-public-posts.component';
+import { SignupComponent } from './signup/signup.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -25,6 +30,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { provideEffects } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -34,6 +40,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     PublicPostComponent,
     RandomPublicPostsComponent,
     SearchPublicPostsComponent,
+    SignupComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -53,7 +60,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTableModule,
     MatToolbarModule,
   ],
-  providers: [],
+  providers: [
+    provideStore(),
+    provideState(authFeature),
+    provideStoreDevtools(),
+    provideEffects({authFeature: signup$}),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

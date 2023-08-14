@@ -6,9 +6,12 @@ import { OldestPublicPostsComponent } from './oldest-public-posts/oldest-public-
 import { PublicPostComponent } from './public-post/public-post.component';
 import { RandomPublicPostsComponent } from './random-public-posts/random-public-posts.component';
 import { SearchPublicPostsComponent } from './search-public-posts/search-public-posts.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/guest/public-posts/random', pathMatch: 'full' },
+
+  { path: 'signup', component: SignupComponent },
 
   { path: 'guest/public-posts/newest', component: NewestPublicPostsComponent },
   { path: 'guest/public-posts/oldest', component: OldestPublicPostsComponent },
