@@ -31,7 +31,6 @@ export class PublicPostComponent implements OnInit {
     this.publicPostService.getPublicPost(publicPostId).subscribe(
       (response) => {
         this.publicPost = response.data;
-        console.log(response);
       },
       (error) => {
         console.error('Error fetching public post:', error);

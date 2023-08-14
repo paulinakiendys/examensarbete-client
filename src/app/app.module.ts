@@ -6,6 +6,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { NewestPublicPostsComponent } from './newest-public-posts/newest-public-posts.component';
+import { OldestPublicPostsComponent } from './oldest-public-posts/oldest-public-posts.component';
 import { PublicPostComponent } from './public-post/public-post.component';
 import { RandomPublicPostsComponent } from './random-public-posts/random-public-posts.component';
 import { SearchPublicPostsComponent } from './search-public-posts/search-public-posts.component';
@@ -27,6 +29,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
+    NewestPublicPostsComponent,
+    OldestPublicPostsComponent,
     PublicPostComponent,
     RandomPublicPostsComponent,
     SearchPublicPostsComponent,
