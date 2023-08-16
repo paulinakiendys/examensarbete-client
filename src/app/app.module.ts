@@ -7,9 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { provideState, provideStore } from '@ngrx/store';
-import { authFeature, signup$ } from './store/auth';
+import { authFeature, login$, signup$ } from './store/auth';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
+import { LoginComponent } from './login/login.component';
 import { NewestPublicPostsComponent } from './newest-public-posts/newest-public-posts.component';
 import { OldestPublicPostsComponent } from './oldest-public-posts/oldest-public-posts.component';
 import { PublicPostComponent } from './public-post/public-post.component';
@@ -35,6 +36,7 @@ import { provideEffects } from '@ngrx/effects';
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     NewestPublicPostsComponent,
     OldestPublicPostsComponent,
     PublicPostComponent,
@@ -64,7 +66,7 @@ import { provideEffects } from '@ngrx/effects';
     provideStore(),
     provideState(authFeature),
     provideStoreDevtools(),
-    provideEffects({authFeature: signup$}),
+    provideEffects({ authFeature: signup$ }, { authFeature: login$ }),
   ],
   bootstrap: [AppComponent],
 })

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { LoginComponent } from './login/login.component';
 import { NewestPublicPostsComponent } from './newest-public-posts/newest-public-posts.component';
 import { OldestPublicPostsComponent } from './oldest-public-posts/oldest-public-posts.component';
 import { PublicPostComponent } from './public-post/public-post.component';
@@ -11,6 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 const routes: Routes = [
   { path: '', redirectTo: '/guest/public-posts/random', pathMatch: 'full' },
 
+  { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
 
   { path: 'guest/public-posts/newest', component: NewestPublicPostsComponent },
