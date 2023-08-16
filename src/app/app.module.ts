@@ -3,18 +3,21 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
-import { provideState, provideStore } from '@ngrx/store';
 import { authFeature, login$, signup$ } from './store/auth';
+import { provideEffects } from '@ngrx/effects';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { NewestPublicPostsComponent } from './newest-public-posts/newest-public-posts.component';
 import { OldestPublicPostsComponent } from './oldest-public-posts/oldest-public-posts.component';
 import { PublicPostComponent } from './public-post/public-post.component';
 import { RandomPublicPostsComponent } from './random-public-posts/random-public-posts.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SearchPublicPostsComponent } from './search-public-posts/search-public-posts.component';
 import { SignupComponent } from './signup/signup.component';
 
@@ -31,16 +34,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { provideEffects } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ForgotPasswordComponent,
     LoginComponent,
     NewestPublicPostsComponent,
     OldestPublicPostsComponent,
     PublicPostComponent,
     RandomPublicPostsComponent,
+    ResetPasswordComponent,
     SearchPublicPostsComponent,
     SignupComponent,
   ],
