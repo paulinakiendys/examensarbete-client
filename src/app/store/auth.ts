@@ -4,6 +4,7 @@ import {
   createActionGroup,
   createFeature,
   createReducer,
+  emptyProps,
   on,
   props,
   provideState,
@@ -39,6 +40,7 @@ export const AuthActions = createActionGroup({
     Login: props<{ email: string; password: string }>(),
     'Login Success': props<{ user: any; token: string }>(),
     'Login Failure': props<{ error: string }>(),
+    Logout: emptyProps(),
   },
 });
 
@@ -94,7 +96,8 @@ export const authFeature = createFeature({
         error,
         loading: false,
       };
-    })
+    }),
+    on(AuthActions.logout, () => initialState)
   ),
 });
 
@@ -122,9 +125,7 @@ export const signup$ = createEffect(
               token: response.token,
             })
           ),
-          catchError((error) =>
-            of(AuthActions.signupFailure({ error }))
-          )
+          catchError((error) => of(AuthActions.signupFailure({ error })))
         );
       })
     );
@@ -146,9 +147,7 @@ export const login$ = createEffect(
               token: response.token,
             })
           ),
-          catchError((error) =>
-            of(AuthActions.loginFailure({ error }))
-          )
+          catchError((error) => of(AuthActions.loginFailure({ error })))
         );
       })
     );
