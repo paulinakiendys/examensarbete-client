@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { authGuard } from './auth.guard';
+
+import { AddPostComponent } from './add-post/add-post.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { NewestPublicPostsComponent } from './newest-public-posts/newest-public-posts.component';
@@ -25,6 +28,12 @@ const routes: Routes = [
   { path: 'guest/public-posts/search', component: SearchPublicPostsComponent },
 
   { path: 'guest/public-posts/:publicPostId', component: PublicPostComponent },
+
+  {
+    path: 'user/posts/add',
+    component: AddPostComponent,
+    canActivate: [authGuard],
+  },
 ];
 
 @NgModule({

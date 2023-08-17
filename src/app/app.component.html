@@ -2,6 +2,10 @@
   <span>Memories</span>
   <span class="spacer"></span>
   <ng-container *ngIf="(user$ | async) as user; else guest">
+    <button mat-button [matMenuTriggerFor]="myPosts">My posts</button>
+    <mat-menu #myPosts="matMenu">
+      <a mat-menu-item [routerLink]="'user/posts/add'">Add post</a>
+    </mat-menu>
     <button mat-button [matMenuTriggerFor]="profileMenu">{{ user.email }}</button>
     <mat-menu #profileMenu="matMenu">
       <a mat-menu-item (click)="logout()">Log out</a>
@@ -17,9 +21,9 @@
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="account">Account</button>
     <mat-menu #account="matMenu">
-      <a mat-menu-item [routerLink]="'signup'">Create account</a>
       <a mat-menu-item [routerLink]="'login'">Log in</a>
-      <a mat-menu-item [routerLink]="'forgot-password'">Forgot password</a>
+      <a mat-menu-item [routerLink]="'signup'">Sign up</a>
+      <a mat-menu-item [routerLink]="'forgot-password'">Forgot password?</a>
     </mat-menu>
   </ng-template>
 </mat-toolbar>

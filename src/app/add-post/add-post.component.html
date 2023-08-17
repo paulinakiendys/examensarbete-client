@@ -1,0 +1,42 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Add post</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (submit)="submit()" #postForm="ngForm">
+        <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        <br>
+        <br>
+        <mat-form-field>
+          <input matInput placeholder="Description*" name="description" [(ngModel)]="post.description" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput placeholder="Location" name="location" [(ngModel)]="post.location">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Mood (1-10)*" name="mood" [(ngModel)]="post.mood" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Temperature*" name="temperature" [(ngModel)]="post.temperature"
+            required>
+        </mat-form-field>
+        <br>
+        <mat-checkbox [(ngModel)]="post.isPublic" name="isPublic">Public</mat-checkbox>
+        <br>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!postForm.form.valid">Add post</button>
+      </form>
+
+      <p *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </p>
+
+      <p *ngIf="successMessage" class="success">
+        {{ successMessage }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

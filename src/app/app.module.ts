@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -11,6 +11,9 @@ import { provideEffects } from '@ngrx/effects';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
+import { AuthInterceptor } from './auth.interceptor';
+
+import { AddPostComponent } from './add-post/add-post.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { NewestPublicPostsComponent } from './newest-public-posts/newest-public-posts.component';
@@ -25,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -38,6 +42,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
+    AddPostComponent,
     ForgotPasswordComponent,
     LoginComponent,
     NewestPublicPostsComponent,
@@ -56,6 +61,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -71,6 +77,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     provideState(authFeature),
     provideStoreDevtools(),
     provideEffects({ authFeature: signup$ }, { authFeature: login$ }),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
