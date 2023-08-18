@@ -5,6 +5,7 @@
     <button mat-button [matMenuTriggerFor]="myPosts">My posts</button>
     <mat-menu #myPosts="matMenu">
       <a mat-menu-item [routerLink]="'user/posts/add'">Add post</a>
+      <a mat-menu-item [routerLink]="'user/posts/search'">Search</a>
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="profileMenu">{{ user.email }}</button>
     <mat-menu #profileMenu="matMenu">

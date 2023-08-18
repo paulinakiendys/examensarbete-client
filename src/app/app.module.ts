@@ -22,7 +22,9 @@ import { PublicPostComponent } from './public-post/public-post.component';
 import { RandomPublicPostsComponent } from './random-public-posts/random-public-posts.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SearchPublicPostsComponent } from './search-public-posts/search-public-posts.component';
+import { SearchUserPostsComponent } from './search-user-posts/search-user-posts.component';
 import { SignupComponent } from './signup/signup.component';
+import { UserPostComponent } from './user-post/user-post.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -51,7 +53,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     RandomPublicPostsComponent,
     ResetPasswordComponent,
     SearchPublicPostsComponent,
+    SearchUserPostsComponent,
     SignupComponent,
+    UserPostComponent,
   ],
   imports: [
     AppRoutingModule,

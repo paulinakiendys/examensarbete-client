@@ -1,10 +1,8 @@
 <div class="container">
-
   <div class="form-wrapper">
     <mat-form-field>
-      <input matInput [(ngModel)]="searchQuery" placeholder="Search for posts">
+      <input matInput [(ngModel)]="searchQuery" placeholder="Search for user posts">
     </mat-form-field>
-
     <button class="search-button" mat-raised-button color="primary" (click)="searchPosts()"
       [disabled]="isLoading">Search</button>
   </div>
@@ -19,16 +17,6 @@
 
   <div *ngIf="searchResults.length > 0">
     <table *ngIf="!isLoading" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-      <ng-container matColumnDef="user">
-        <th mat-header-cell *matHeaderCellDef>User</th>
-        <td mat-cell *matCellDef="let post">
-          <div class="user-photo-wrapper">
-            <img *ngIf="post.user.photo !== ''" class="user-photo" src="{{ post.user.photo }}" alt="User photo"><span>{{
-              post.user.email }}</span>
-          </div>
-        </td>
-      </ng-container>
 
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
@@ -61,7 +49,7 @@
         <th mat-header-cell *matHeaderCellDef>Photo</th>
         <td mat-cell *matCellDef="let post">
           <ng-container *ngIf="post.photo !== ''; else noPhoto">
-            <img class="search-public-posts-photo" [src]="post.photo" alt="Search Public Posts Photo">
+            <img class="search-user-posts-photo" [src]="post.photo" alt="Search User Posts Photo">
           </ng-container>
           <ng-template #noPhoto>No photo available</ng-template>
         </td>
@@ -70,7 +58,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let post">
-          <a mat-button color="primary" [routerLink]="['/guest/public-posts', post._id]">View</a>
+          <a mat-button color="primary" [routerLink]="['/user/posts', post._id]">View</a>
         </td>
       </ng-container>
 
@@ -82,3 +70,4 @@
       [hidePageSize]="true" (page)="pageChanged($event)">
     </mat-paginator>
   </div>
+</div>

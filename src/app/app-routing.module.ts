@@ -12,7 +12,9 @@ import { PublicPostComponent } from './public-post/public-post.component';
 import { RandomPublicPostsComponent } from './random-public-posts/random-public-posts.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SearchPublicPostsComponent } from './search-public-posts/search-public-posts.component';
+import { SearchUserPostsComponent } from './search-user-posts/search-user-posts.component';
 import { SignupComponent } from './signup/signup.component';
+import { UserPostComponent } from './user-post/user-post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/guest/public-posts/random', pathMatch: 'full' },
@@ -32,6 +34,17 @@ const routes: Routes = [
   {
     path: 'user/posts/add',
     component: AddPostComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'user/posts/search',
+    component: SearchUserPostsComponent,
+    canActivate: [authGuard],
+  },
+
+  {
+    path: 'user/posts/:userPostId',
+    component: UserPostComponent,
     canActivate: [authGuard],
   },
 ];
