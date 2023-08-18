@@ -7,8 +7,17 @@
       <a mat-menu-item [routerLink]="'user/posts/add'">Add post</a>
       <a mat-menu-item [routerLink]="'user/posts/search'">Search</a>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="profileMenu">{{ user.email }}</button>
+    <ng-container *ngIf="(user$ | async)?.photo; else userEmail">
+      <button mat-mini-fab color="primary" [matMenuTriggerFor]="profileMenu">
+        <img class="user-profile-photo" [src]="(user$ | async)?.photo" alt="User Profile Photo" />
+      </button>
+    </ng-container>
+    <ng-template #userEmail>
+      <button mat-button [matMenuTriggerFor]="profileMenu">{{ (user$ | async)?.email }}
+      </button>
+    </ng-template>
     <mat-menu #profileMenu="matMenu">
+      <a mat-menu-item [routerLink]="'user/profile'">Update profile</a>
       <a mat-menu-item (click)="logout()">Log out</a>
     </mat-menu>
   </ng-container>

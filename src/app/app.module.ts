@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { authFeature, login$, signup$ } from './store/auth';
+import { authFeature, login$, signup$, updateProfile$ } from './store/auth';
 import { provideEffects } from '@ngrx/effects';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -25,6 +25,7 @@ import { SearchPublicPostsComponent } from './search-public-posts/search-public-
 import { SearchUserPostsComponent } from './search-user-posts/search-user-posts.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserPostComponent } from './user-post/user-post.component';
+import { UserProfileUpdateComponent } from './user-profile-update/user-profile-update.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -56,6 +57,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     SearchUserPostsComponent,
     SignupComponent,
     UserPostComponent,
+    UserProfileUpdateComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -80,7 +82,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     provideStore(),
     provideState(authFeature),
     provideStoreDevtools(),
-    provideEffects({ authFeature: signup$ }, { authFeature: login$ }),
+    provideEffects({ authFeature: signup$ }, { authFeature: login$ }, { authFeature: updateProfile$ }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

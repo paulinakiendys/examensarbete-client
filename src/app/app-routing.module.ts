@@ -15,6 +15,7 @@ import { SearchPublicPostsComponent } from './search-public-posts/search-public-
 import { SearchUserPostsComponent } from './search-user-posts/search-user-posts.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserPostComponent } from './user-post/user-post.component';
+import { UserProfileUpdateComponent } from './user-profile-update/user-profile-update.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/guest/public-posts/random', pathMatch: 'full' },
@@ -45,6 +46,11 @@ const routes: Routes = [
   {
     path: 'user/posts/:userPostId',
     component: UserPostComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'user/profile',
+    component: UserProfileUpdateComponent,
     canActivate: [authGuard],
   },
 ];

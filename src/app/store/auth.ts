@@ -15,12 +15,14 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 
 import { LoginService } from '../login/login.service';
 import { SignupService } from '../signup/signup.service';
+import { UserProfileUpdateService } from '../user-profile-update/user-profile-update.service';
 
 export interface AuthState {
   user: any | null;
   token: string | null;
   error: string | null;
   loading: boolean;
+  message: string | null;
 }
 
 export const initialState: AuthState = {
@@ -28,6 +30,7 @@ export const initialState: AuthState = {
   token: null,
   error: null,
   loading: false,
+  message: null,
 };
 
 // Actions
@@ -41,6 +44,9 @@ export const AuthActions = createActionGroup({
     'Login Success': props<{ user: any; token: string }>(),
     'Login Failure': props<{ error: string }>(),
     Logout: emptyProps(),
+    'Update Profile': props<{ formData: FormData }>(),
+    'Update Profile Success': props<{ user: any; message: string }>(),
+    'Update Profile Failure': props<{ error: string }>(),
   },
 });
 
@@ -62,6 +68,7 @@ export const authFeature = createFeature({
         token,
         error: null,
         loading: false,
+        message: null,
       };
     }),
     on(AuthActions.signupFailure, (state, { error }) => {
@@ -71,6 +78,7 @@ export const authFeature = createFeature({
         token: null,
         error,
         loading: false,
+        message: null,
       };
     }),
     on(AuthActions.login, (state) => {
@@ -86,6 +94,7 @@ export const authFeature = createFeature({
         token,
         error: null,
         loading: false,
+        message: null,
       };
     }),
     on(AuthActions.loginFailure, (state, { error }) => {
@@ -95,19 +104,46 @@ export const authFeature = createFeature({
         token: null,
         error,
         loading: false,
+        message: null,
       };
     }),
-    on(AuthActions.logout, () => initialState)
+    on(AuthActions.logout, () => initialState),
+    on(AuthActions.updateProfile, (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    }),
+    on(AuthActions.updateProfileSuccess, (state, { user, message }) => {
+      return {
+        ...state,
+        user,
+        message,
+        error: null,
+        loading: false,
+      };
+    }),
+    on(AuthActions.updateProfileFailure, (state, { error }) => {
+      return {
+        ...state,
+        user: null,
+        token: null,
+        error,
+        loading: false,
+        message: null,
+      };
+    })
   ),
 });
 
 // Selectors
 export const {
   selectAuthState,
-  selectUser,
-  selectToken,
-  selectLoading,
   selectError,
+  selectLoading,
+  selectMessage,
+  selectToken,
+  selectUser,
 } = authFeature;
 
 // Effects
@@ -155,11 +191,34 @@ export const login$ = createEffect(
   { functional: true }
 );
 
+export const updateProfile$ = createEffect(
+  (actions$ = inject(Actions)) => {
+    const userProfileUpdateService = inject(UserProfileUpdateService);
+
+    return actions$.pipe(
+      ofType(AuthActions.updateProfile),
+      exhaustMap((action) => {
+        return userProfileUpdateService.userProfileUpdate(action.formData).pipe(
+          map((response) =>
+            AuthActions.updateProfileSuccess({
+              user: response.data.user,
+              message: response.data.message,
+            })
+          ),
+          catchError((error) => of(AuthActions.updateProfileFailure({ error })))
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
 export function provideAuthFeature() {
   return makeEnvironmentProviders([
     provideState(authFeature),
-    provideEffects({ login$, signup$ }),
+    provideEffects({ login$, signup$, updateProfile$ }),
     LoginService,
     SignupService,
+    UserProfileUpdateService,
   ]);
 }

@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+mat-card {
+  width: 244px;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+.user-profile-photo {
+  width: 212px;
+  height: 212px;
+  object-fit: cover;
+  border-radius: 50%;
+}
