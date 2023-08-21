@@ -1,0 +1,33 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-wrapper {
+  margin-top: 1rem;
+  align-self: center;
+}
+
+.error {
+  text-align: center;
+}
+
+.buttons-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-posts-by-day-month-photo {
+  height: 100px;
+  width: 100px;
+  background-size: cover;
+  margin-top: 0.5rem;
+}

@@ -15,6 +15,7 @@ import { SearchPublicPostsComponent } from './search-public-posts/search-public-
 import { SearchUserPostsComponent } from './search-user-posts/search-user-posts.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserPostComponent } from './user-post/user-post.component';
+import { UserPostsByDayMonthComponent } from './user-posts-by-day-month/user-posts-by-day-month.component';
 import { UserProfileUpdateComponent } from './user-profile-update/user-profile-update.component';
 
 const routes: Routes = [
@@ -35,6 +36,11 @@ const routes: Routes = [
   {
     path: 'user/posts/add',
     component: AddPostComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'user/posts/:month/:day',
+    component: UserPostsByDayMonthComponent,
     canActivate: [authGuard],
   },
   {

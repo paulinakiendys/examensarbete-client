@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="title-wrapper">
+    <div class="buttons-wrapper">
+      <button mat-raised-button color="primary" (click)="navigateToPreviousDay()">Previous day</button>
+      <h2>Posts for {{ day }}/{{ month }}</h2>
+      <button mat-raised-button color="primary" (click)="navigateToNextDay()">Next day</button>
+    </div>
+
+    <div class="error" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+  </div>
+
+  <table *ngIf="posts.length > 0" mat-table [dataSource]="posts" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let post">
+        <div [ngClass]="{'truncate': post.description.length > 50}">
+          {{ post.description.length > 50 ? (post.description | slice:0:50) + '...' : post.description }}
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef>Location</th>
+      <td mat-cell *matCellDef="let post">
+        <ng-container *ngIf="post.location; else noLocation">{{ post.location }}</ng-container>
+        <ng-template #noLocation>No location provided</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mood">
+      <th mat-header-cell *matHeaderCellDef>Mood</th>
+      <td mat-cell *matCellDef="let post">{{ post.mood }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="temperature">
+      <th mat-header-cell *matHeaderCellDef>Temperature</th>
+      <td mat-cell *matCellDef="let post">{{ post.temperature }}°C</td>
+    </ng-container>
+
+    <ng-container matColumnDef="photo">
+      <th mat-header-cell *matHeaderCellDef>Photo</th>
+      <td mat-cell *matCellDef="let post">
+        <ng-container *ngIf="post.photo !== ''; else noPhoto">
+          <img class="user-posts-by-day-month-photo" [src]="post.photo" alt="User Posts By Day Month Photo">
+        </ng-container>
+        <ng-template #noPhoto>No photo available</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Year</th>
+      <td mat-cell *matCellDef="let post">{{ post.createdAt | date: 'yyyy' }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let post">
+        <a mat-button color="primary" [routerLink]="['/user/posts', post._id]">View</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

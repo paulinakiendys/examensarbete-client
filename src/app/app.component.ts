@@ -11,6 +11,9 @@ import { AuthActions, selectUser } from './store/auth';
 export class AppComponent {
   private store = inject(Store);
   private router = inject(Router);
+  private today: Date = new Date();
+  month: number = this.today.getMonth() + 1;
+  day: number = this.today.getDate();
   readonly user$ = this.store.select(selectUser);
 
   logout() {
