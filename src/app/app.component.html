@@ -4,8 +4,9 @@
   <ng-container *ngIf="(user$ | async) as user; else guest">
     <button mat-button [matMenuTriggerFor]="myPosts">My posts</button>
     <mat-menu #myPosts="matMenu">
-      <a mat-menu-item [routerLink]="['/user/posts', month, day]">Posts by day</a>
       <a mat-menu-item [routerLink]="'user/posts/add'">Add post</a>
+      <a mat-menu-item [routerLink]="['/user/posts', month, day]">Posts by day</a>
+      <a mat-menu-item [routerLink]="'/user/posts/range'">Posts by year</a>
       <a mat-menu-item [routerLink]="'user/posts/search'">Search</a>
     </mat-menu>
     <ng-container *ngIf="(user$ | async)?.photo; else userEmail">

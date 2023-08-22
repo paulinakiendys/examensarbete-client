@@ -27,6 +27,7 @@ import { SignupComponent } from './signup/signup.component';
 import { UserPostComponent } from './user-post/user-post.component';
 import { UserPostEditComponent } from './user-post-edit/user-post-edit.component';
 import { UserPostsByDayMonthComponent } from './user-posts-by-day-month/user-posts-by-day-month.component';
+import { UserPostsInRangeComponent } from './user-posts-in-range/user-posts-in-range.component';
 import { UserProfileUpdateComponent } from './user-profile-update/user-profile-update.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -61,6 +63,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     UserPostComponent,
     UserPostEditComponent,
     UserPostsByDayMonthComponent,
+    UserPostsInRangeComponent,
     UserProfileUpdateComponent,
   ],
   imports: [
@@ -72,6 +75,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -86,7 +90,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     provideStore(),
     provideState(authFeature),
     provideStoreDevtools(),
-    provideEffects({ authFeature: signup$ }, { authFeature: login$ }, { authFeature: updateProfile$ }),
+    provideEffects(
+      { authFeature: signup$ },
+      { authFeature: login$ },
+      { authFeature: updateProfile$ }
+    ),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

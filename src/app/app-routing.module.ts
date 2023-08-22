@@ -18,6 +18,7 @@ import { UserPostComponent } from './user-post/user-post.component';
 import { UserPostsByDayMonthComponent } from './user-posts-by-day-month/user-posts-by-day-month.component';
 import { UserProfileUpdateComponent } from './user-profile-update/user-profile-update.component';
 import { UserPostEditComponent } from './user-post-edit/user-post-edit.component';
+import { UserPostsInRangeComponent } from './user-posts-in-range/user-posts-in-range.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/guest/public-posts/random', pathMatch: 'full' },
@@ -27,13 +28,14 @@ const routes: Routes = [
   { path: 'reset-password/:resetToken', component: ResetPasswordComponent },
   { path: 'signup', component: SignupComponent },
 
+  // Guest routes
   { path: 'guest/public-posts/newest', component: NewestPublicPostsComponent },
   { path: 'guest/public-posts/oldest', component: OldestPublicPostsComponent },
   { path: 'guest/public-posts/random', component: RandomPublicPostsComponent },
   { path: 'guest/public-posts/search', component: SearchPublicPostsComponent },
-
   { path: 'guest/public-posts/:publicPostId', component: PublicPostComponent },
 
+  // User routes
   {
     path: 'user/posts/add',
     component: AddPostComponent,
@@ -47,6 +49,11 @@ const routes: Routes = [
   {
     path: 'user/posts/:month/:day',
     component: UserPostsByDayMonthComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'user/posts/range',
+    component: UserPostsInRangeComponent,
     canActivate: [authGuard],
   },
   {
@@ -64,6 +71,9 @@ const routes: Routes = [
     component: UserProfileUpdateComponent,
     canActivate: [authGuard],
   },
+
+  // Catch-all route
+  { path: '**', redirectTo: '/guest/public-posts/random' },
 ];
 
 @NgModule({
