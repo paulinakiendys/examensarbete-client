@@ -29,9 +29,9 @@ export class AddPostComponent {
 
     formData.append('description', this.post.description);
     formData.append('location', this.post.location);
-    formData.append('mood', this.post.mood.toString());
-    formData.append('temperature', this.post.temperature.toString());
-    formData.append('isPublic', this.post.isPublic.toString());
+    formData.append('mood', this.post.mood);
+    formData.append('temperature', this.post.temperature);
+    formData.append('isPublic', this.post.isPublic);
 
     this.addPostService.addPost(formData).subscribe(
       (response) => {

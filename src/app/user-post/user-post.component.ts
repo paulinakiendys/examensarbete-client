@@ -22,18 +22,30 @@ export class UserPostComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const userPostId = params.get('userPostId');
       if (userPostId) {
-        this.fetchUserPost(userPostId);
+        this.getUserPost(userPostId);
       }
     });
   }
 
-  fetchUserPost(userPostId: string): void {
+  getUserPost(userPostId: string): void {
     this.userPostService.getUserPost(userPostId).subscribe(
       (response) => {
         this.userPost = response.data;
       },
       (error) => {
         console.error('Error fetching user post:', error);
+      }
+    );
+  }
+
+  deleteUserPost(): void {
+    this.userPostService.deleteUserPost(this.userPost._id).subscribe(
+      () => {
+        // Redirect user after deletion
+        this.location.back();
+      },
+      (error) => {
+        console.error('Error deleting user post:', error);
       }
     );
   }

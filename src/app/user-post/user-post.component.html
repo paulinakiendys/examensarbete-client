@@ -11,7 +11,8 @@
         <mat-card-subtitle>{{ userPost.location }}</mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
-    <img mat-card-image *ngIf="userPost.photo !== ''" class="public-post-photo" [src]="userPost.photo" alt="User Post Photo">
+    <img mat-card-image *ngIf="userPost.photo !== ''" class="public-post-photo" [src]="userPost.photo"
+      alt="User Post Photo">
     <mat-card-content>
       <p>{{ userPost.description }}</p>
       <p>Mood: {{ userPost.mood }}</p>
@@ -19,6 +20,8 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-button color="primary" (click)="back()">Back</button>
+      <button mat-button color="accent" [routerLink]="['/user/posts/edit', userPost._id]">Edit</button>
+      <button mat-button color="warn" (click)="deleteUserPost()">Delete</button>
     </mat-card-actions>
   </mat-card>
   <div *ngIf="!userPost">

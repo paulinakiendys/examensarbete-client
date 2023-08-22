@@ -1,0 +1,18 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+mat-card {
+  width: 244px;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}

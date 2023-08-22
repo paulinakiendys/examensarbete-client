@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserPostService {
+export class UserPostEditService {
   private url = 'http://localhost:3000/user/posts';
 
   constructor(private http: HttpClient) {}
@@ -14,7 +14,7 @@ export class UserPostService {
     return this.http.get<any>(`${this.url}/${userPostId}`);
   }
 
-  deleteUserPost(userPostId: string): Observable<void> {
-    return this.http.delete<void>(`${this.url}/${userPostId}`);
+  editUserPost(userPostId: string, formData: FormData): Observable<any> {
+    return this.http.put<any>(`${this.url}/${userPostId}`, formData);
   }
 }

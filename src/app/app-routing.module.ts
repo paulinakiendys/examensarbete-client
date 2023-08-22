@@ -17,6 +17,7 @@ import { SignupComponent } from './signup/signup.component';
 import { UserPostComponent } from './user-post/user-post.component';
 import { UserPostsByDayMonthComponent } from './user-posts-by-day-month/user-posts-by-day-month.component';
 import { UserProfileUpdateComponent } from './user-profile-update/user-profile-update.component';
+import { UserPostEditComponent } from './user-post-edit/user-post-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/guest/public-posts/random', pathMatch: 'full' },
@@ -39,6 +40,11 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'user/posts/edit/:userPostId',
+    component: UserPostEditComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: 'user/posts/:month/:day',
     component: UserPostsByDayMonthComponent,
     canActivate: [authGuard],
@@ -48,7 +54,6 @@ const routes: Routes = [
     component: SearchUserPostsComponent,
     canActivate: [authGuard],
   },
-
   {
     path: 'user/posts/:userPostId',
     component: UserPostComponent,
