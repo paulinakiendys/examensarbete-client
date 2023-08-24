@@ -2,26 +2,38 @@
   <span>Memories</span>
   <span class="spacer"></span>
   <ng-container *ngIf="(user$ | async) as user; else guest">
-    <button mat-button [matMenuTriggerFor]="myPosts">My posts</button>
-    <mat-menu #myPosts="matMenu">
-      <a mat-menu-item [routerLink]="'user/posts/add'">Add post</a>
-      <a mat-menu-item [routerLink]="['/user/posts', month, day]">Posts by day</a>
-      <a mat-menu-item [routerLink]="'/user/posts/range'">Posts by year</a>
-      <a mat-menu-item [routerLink]="'user/posts/search'">Search</a>
-    </mat-menu>
-    <ng-container *ngIf="(user$ | async)?.photo; else userEmail">
-      <button mat-mini-fab color="primary" [matMenuTriggerFor]="profileMenu">
-        <img class="user-profile-photo" [src]="(user$ | async)?.photo" alt="User Profile Photo" />
-      </button>
+    <ng-container *ngIf="user?.isAdmin; else notAdmin">
+      <button mat-button [matMenuTriggerFor]="adminPostsMenu">Admin posts</button>
+      <mat-menu #adminPostsMenu="matMenu">
+        <a mat-menu-item [routerLink]="'admin/posts'">Pending posts</a>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="adminProfileMenu">{{ (user$ | async)?.email }}</button>
+      <mat-menu #adminProfileMenu="matMenu">
+        <a mat-menu-item (click)="logout()">Log out</a>
+      </mat-menu>
     </ng-container>
-    <ng-template #userEmail>
-      <button mat-button [matMenuTriggerFor]="profileMenu">{{ (user$ | async)?.email }}
-      </button>
+    <ng-template #notAdmin>
+      <button mat-button [matMenuTriggerFor]="myPosts">My posts</button>
+      <mat-menu #myPosts="matMenu">
+        <a mat-menu-item [routerLink]="'user/posts/add'">Add post</a>
+        <a mat-menu-item [routerLink]="['/user/posts', month, day]">Posts by day</a>
+        <a mat-menu-item [routerLink]="'/user/posts/range'">Posts by year</a>
+        <a mat-menu-item [routerLink]="'user/posts/search'">Search</a>
+      </mat-menu>
+      <ng-container *ngIf="(user$ | async)?.photo; else userEmail">
+        <button mat-mini-fab color="primary" [matMenuTriggerFor]="profileMenu">
+          <img class="user-profile-photo" [src]="(user$ | async)?.photo" alt="User Profile Photo" />
+        </button>
+      </ng-container>
+      <ng-template #userEmail>
+        <button mat-button [matMenuTriggerFor]="profileMenu">{{ (user$ | async)?.email }}
+        </button>
+      </ng-template>
+      <mat-menu #profileMenu="matMenu">
+        <a mat-menu-item [routerLink]="'user/profile'">Update profile</a>
+        <a mat-menu-item (click)="logout()">Log out</a>
+      </mat-menu>
     </ng-template>
-    <mat-menu #profileMenu="matMenu">
-      <a mat-menu-item [routerLink]="'user/profile'">Update profile</a>
-      <a mat-menu-item (click)="logout()">Log out</a>
-    </mat-menu>
   </ng-container>
   <ng-template #guest>
     <button mat-button [matMenuTriggerFor]="publicPosts">Public posts</button>

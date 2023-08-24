@@ -16,6 +16,7 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 import { LoginService } from '../login/login.service';
 import { SignupService } from '../signup/signup.service';
 import { UserProfileUpdateService } from '../user-profile-update/user-profile-update.service';
+import { Router } from '@angular/router';
 
 export interface AuthState {
   user: any | null;
@@ -150,17 +151,19 @@ export const {
 export const signup$ = createEffect(
   (actions$ = inject(Actions)) => {
     const signupService = inject(SignupService);
+    const router = inject(Router);
 
     return actions$.pipe(
       ofType(AuthActions.signup),
       exhaustMap((action) => {
         return signupService.signup(action.email, action.password).pipe(
-          map((response) =>
-            AuthActions.signupSuccess({
+          map((response) => {
+            router.navigate(['/user/posts/add']); // Redirect user after signup
+            return AuthActions.signupSuccess({
               user: response.user,
               token: response.token,
-            })
-          ),
+            });
+          }),
           catchError((error) => of(AuthActions.signupFailure({ error })))
         );
       })
@@ -172,17 +175,24 @@ export const signup$ = createEffect(
 export const login$ = createEffect(
   (actions$ = inject(Actions)) => {
     const loginService = inject(LoginService);
+    const router = inject(Router);
 
     return actions$.pipe(
       ofType(AuthActions.login),
       exhaustMap((action) => {
         return loginService.login(action.email, action.password).pipe(
-          map((response) =>
-            AuthActions.loginSuccess({
+          map((response) => {
+            const user = response.user;
+            if (user.isAdmin) {
+              router.navigate(['/admin/posts']); // Redirect admin
+            } else {
+              router.navigate(['/user/posts/add']); // Redirect user
+            }
+            return AuthActions.loginSuccess({
               user: response.user,
               token: response.token,
-            })
-          ),
+            });
+          }),
           catchError((error) => of(AuthActions.loginFailure({ error })))
         );
       })
@@ -201,8 +211,8 @@ export const updateProfile$ = createEffect(
         return userProfileUpdateService.userProfileUpdate(action.formData).pipe(
           map((response) =>
             AuthActions.updateProfileSuccess({
-              user: response.data.user,
-              message: response.data.message,
+              user: response.user,
+              message: response.message,
             })
           ),
           catchError((error) => of(AuthActions.updateProfileFailure({ error })))

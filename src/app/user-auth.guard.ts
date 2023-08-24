@@ -4,7 +4,7 @@ import { selectToken } from './store/auth';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
-export const authGuard: CanActivateFn = () => {
+export const userAuthGuard: CanActivateFn = () => {
   const router = inject(Router);
   const store = inject(Store);
 

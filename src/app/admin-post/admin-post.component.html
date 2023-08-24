@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="messages-wrapper">
+    <p *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </p>
+    <p *ngIf="successMessage" class="success">
+      {{ successMessage }}
+    </p>
+    <button *ngIf="successMessage || errorMessage" mat-button color="primary" (click)="back()">Back</button>
+  </div>
+  <div class="card-wrapper" [ngClass]="{ 'hide': !pendingPost }">
+    <mat-card *ngIf="pendingPost">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>
+            <div class="user-photo-wrapper">
+              <img *ngIf="pendingPost.user.photo !== ''" class="user-photo" src="{{ pendingPost.user.photo }}" alt="">{{
+              pendingPost.user.email }}
+            </div>
+          </mat-card-title>
+          <mat-card-subtitle>{{ pendingPost.location }}</mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card-header>
+      <img mat-card-image *ngIf="pendingPost.photo !== ''" class="admin-pending-post-photo"
+        src="{{ pendingPost.photo }}" alt="Admin Pending Post Photo">
+      <mat-card-content>
+        <p>{{ pendingPost.description }}</p>
+        <p>Mood: {{ pendingPost.mood }}</p>
+        <p>Temperature: {{ pendingPost.temperature }}°C</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="back()">Back</button>
+        <button mat-button color="accent" (click)="approve()">Approve</button>
+        <button mat-button color="warn" (click)="deny()">Deny</button>
+      </mat-card-actions>
+    </mat-card>
+    <div *ngIf="!pendingPost">
+      <p>Loading...</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.messages-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+mat-card {
+  width: 400px;
+}
+
+.user-photo-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.user-photo {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.admin-pending-post-photo {
+  width: 400px;
+  height: 400px;
+  background-size: cover;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+.hide {
+  display: none;
+}

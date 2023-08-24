@@ -6,12 +6,12 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class SearchPublicPostsService {
+export class AdminPostsService {
   private url = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  searchPublicPosts(page: number, query: string): Observable<any> {
-    return this.http.get<any>(`${this.url}/guest/public-posts/search?page=${page}&query=${query}`);
+  getPendingPosts(page: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/admin/posts/pending?page=${page}`);
   }
 }

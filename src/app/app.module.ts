@@ -14,6 +14,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AuthInterceptor } from './auth.interceptor';
 
 import { AddPostComponent } from './add-post/add-post.component';
+import { AdminPostComponent } from './admin-post/admin-post.component';
+import { AdminPostsComponent } from './admin-posts/admin-posts.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { NewestPublicPostsComponent } from './newest-public-posts/newest-public-posts.component';
@@ -50,6 +52,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   declarations: [
     AppComponent,
     AddPostComponent,
+    AdminPostComponent,
+    AdminPostsComponent,
     ForgotPasswordComponent,
     LoginComponent,
     NewestPublicPostsComponent,
